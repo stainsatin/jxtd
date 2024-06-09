@@ -1,0 +1,13 @@
+set(SRC cmd.cc)
+add_library(router_cmd)
+target_sources(router_cmd PRIVATE ${SRC})
+target_include_directories(router_cmd PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+add_dependencies(router_cmd taskdep_message taskdep_proto datatransfer_msg datatransfer_proto workflow-0.10.4 protobuf-3.21.12)
+
+set(SRC test_cmd.cc)
+add_executable(test_cmd)
+target_include_directories(test_cmd PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_BINARY_DIR}/computation/infer)
+target_sources(test_cmd PRIVATE ${SRC})
+target_link_libraries(test_cmd PRIVATE router_cmd taskdep_computation datamanagement local_fileoperations fs_scheduler taskdep_storage infer taskdep_message taskdep_proto datatransfer_client jxtd_Engine drccp drccp_proto infer_proto opencv_imgproc opencv_core dl inferprovider taskdep_management taskdep_message taskdep_proto datatransfer_msg datatransfer_proto ATParser ATAction workflow gtest_main gtest protobuf pthread)
+add_dependencies(test_cmd gtest-1.12.0 protobuf-3.21.12 workflow-0.10.4)
+add_test(test_router_cmd test_cmd)

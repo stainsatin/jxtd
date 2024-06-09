@@ -1,0 +1,18 @@
+set(SRC client_task.cc)
+add_library(datatransfer_client)
+target_sources(datatransfer_client PRIVATE ${SRC})
+add_dependencies(datatransfer_client protobuf-3.21.12 datatransfer_msg workflow-0.10.4)
+
+set(SRC test_client.cc)
+add_executable(test_client)
+target_sources(test_client PRIVATE ${SRC})
+target_link_libraries(test_client PRIVATE datatransfer_client datatransfer_msg datatransfer_proto workflow gtest_main gtest protobuf pthread)
+add_dependencies(test_client gtest-1.12.0 protobuf-3.21.12 workflow-0.10.4)
+add_test(test_computation_datatransfer_client test_client)
+
+set(SRC test_callback.cc)
+add_executable(test_callback)
+target_sources(test_callback PRIVATE ${SRC})
+target_link_libraries(test_callback PRIVATE datatransfer_client datatransfer_msg datatransfer_proto workflow gtest_main gtest protobuf pthread)
+add_dependencies(test_callback gtest-1.12.0 protobuf-3.21.12 workflow-0.10.4)
+add_test(test_computation_datatransfer_callback test_callback)

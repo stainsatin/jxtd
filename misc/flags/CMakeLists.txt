@@ -1,0 +1,5 @@
+set(SRC flag.cc)
+add_library(flags)
+target_sources(flags PRIVATE ${SRC})
+target_include_directories(flags PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+add_dependencies(flags gflags-2.2.2)

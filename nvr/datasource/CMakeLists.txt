@@ -1,0 +1,11 @@
+set(SRC Registry.cc)
+add_Library(nvr_datasource)
+target_sources(nvr_datasource PRIVATE ${SRC})
+target_include_directories(nvr_datasource PRIVATE ${CMAKE_BINARY_DIR}/proto/datasource/)
+add_dependencies(nvr_datasource datasource_proto workflow-0.10.4)
+
+add_executable(test_datasource_registry)
+target_sources(test_datasource_registry PRIVATE test_datasource_registry.cc)
+target_link_libraries(test_datasource_registry PRIVATE nvr_datasource management_datasource datasource_msg datasource_proto workflow gtest_main gtest protobuf pthread)
+add_dependencies(test_datasource_registry workflow-0.10.4 gtest-1.12.0)
+add_test(test_datasource_registry test_datasource_registry)

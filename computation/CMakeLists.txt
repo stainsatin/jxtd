@@ -1,0 +1,6 @@
+add_subdirectory(bin)
+add_subdirectory(datatransfer)
+add_subdirectory(drccp)
+add_subdirectory(engine)
+add_subdirectory(infer)
+add_subdirectory(taskdep)

@@ -1,0 +1,10 @@
+SET(SRC ImagePrc.cc)
+add_library(misc_cv_internal OBJECT)
+target_sources(misc_cv_internal PRIVATE ${SRC})
+add_dependencies(misc_cv_internal opencv-4.6.0)
+
+add_executable(misc_cv_internal_test_base)
+target_sources(misc_cv_internal_test_base PRIVATE test_base.cc $<TARGET_OBJECTS:misc_cv_internal> )
+add_dependencies(misc_cv_internal_test_base gtest-1.12.0 opencv-4.6.0)
+target_link_libraries(misc_cv_internal_test_base PRIVATE gtest_main gtest opencv_imgproc opencv_core dl pthread z)
+add_test(misc_cv_internal_test_base misc_cv_internal_test_base)

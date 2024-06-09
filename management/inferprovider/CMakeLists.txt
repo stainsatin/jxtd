@@ -1,0 +1,12 @@
+set(SRC task.cc)
+add_library(inferprovider)
+target_sources(inferprovider PRIVATE ${SRC})
+target_include_directories(inferprovider PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+add_dependencies(inferprovider jxtd_Engine)
+
+set(SRC test_task.cc)
+add_executable(test_task)
+target_sources(test_task PRIVATE ${SRC})
+target_link_libraries(test_task PRIVATE inferprovider jxtd_Engine gtest_main gtest pthread)
+add_dependencies(test_task  gtest-1.12.0)
+add_test(test_management_inferprovider_task test_task)

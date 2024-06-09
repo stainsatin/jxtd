@@ -1,0 +1,10 @@
+set(SRC sqliteUtil.cpp sqliteConnector.cpp)
+add_library(dboperator)
+target_sources(dboperator PRIVATE  ${SRC})
+add_dependencies(dboperator sqlite3-3.11.0)
+
+add_executable(test_sql)
+target_sources(test_sql PRIVATE test_sql.cpp)
+add_dependencies(test_sql gtest-1.12.0 sqlite3-3.11.0)
+target_link_libraries(test_sql PRIVATE dboperator gtest_main libsqlite3.a gtest  dl pthread z)
+add_test(test_sql test_sql)

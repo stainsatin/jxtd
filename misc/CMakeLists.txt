@@ -1,0 +1,7 @@
+add_subdirectory(cv)
+add_subdirectory(protocol)
+add_subdirectory(adapter)
+add_subdirectory(parser)
+add_subdirectory(crypto)
+add_subdirectory(flags)
+add_subdirectory(dboperator)

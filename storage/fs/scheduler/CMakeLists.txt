@@ -1,0 +1,12 @@
+set(SRC Scheduler.cc)
+add_library(fs_scheduler)
+target_sources(fs_scheduler PRIVATE ${SRC})
+target_include_directories(fs_scheduler PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+
+set(SRC test_scheduler.cc)
+add_executable(test_scheduler)
+target_include_directories(test_scheduler PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+target_sources(test_scheduler PRIVATE ${SRC})
+target_link_libraries(test_scheduler PRIVATE fs_scheduler workflow gtest_main gtest protobuf pthread)
+add_dependencies(test_scheduler gtest-1.12.0 protobuf-3.21.12 workflow-0.10.4)
+add_test(test_storage_fs_scheduler_scheduler test_scheduler)

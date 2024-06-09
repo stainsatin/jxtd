@@ -1,0 +1,11 @@
+set(SRC datamanagement.cc)
+add_library(datamanagement)
+target_sources(datamanagement PRIVATE ${SRC})
+add_dependencies(datamanagement protobuf-3.21.12 workflow-0.10.4)
+
+set(SRC test_datamanagement.cc)
+add_executable(test_datamanagement)
+target_sources(test_datamanagement PRIVATE ${SRC})
+target_link_libraries(test_datamanagement PRIVATE datamanagement local_fileoperations fs_scheduler taskdep_message taskdep_proto workflow gtest_main gtest protobuf pthread)
+add_dependencies(test_datamanagement gtest-1.12.0 protobuf-3.21.12 workflow-0.10.4)
+add_test(test_storage_datamanagement_datamanagement test_datamanagement)

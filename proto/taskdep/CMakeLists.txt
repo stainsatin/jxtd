@@ -1,0 +1,15 @@
+protolib(taskdep_proto taskdep_message)
+
+set(SRC message.cc)
+add_library(taskdep_message)
+target_sources(taskdep_message PRIVATE ${SRC})
+target_include_directories(taskdep_message PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+add_dependencies(taskdep_message protobuf-3.21.12 taskdep_proto workflow-0.10.4)
+
+set(SRC test_endpoint.cc)
+add_executable(test_endpoint)
+target_include_directories(test_endpoint PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+target_sources(test_endpoint PRIVATE ${SRC})
+target_link_libraries(test_endpoint PRIVATE taskdep_message taskdep_proto workflow gtest_main gtest protobuf pthread)
+add_dependencies(test_endpoint gtest-1.12.0 protobuf-3.21.12 workflow-0.10.4)
+add_test(test_proto_taskdep_endpoint test_endpoint)

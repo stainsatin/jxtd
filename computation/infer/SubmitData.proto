@@ -1,0 +1,23 @@
+syntax = "proto3";
+package jxtd.computation.infer;
+
+message RequestData
+{
+    uint32 taskid = 1;
+    optional string input_path = 2;
+    optional string input_data = 3;
+    string output_path = 4;
+    uint32 directory_policy = 5;
+    uint32 empty_policy = 6;
+    uint32 period = 7;
+} 
+
+message ResponseData
+{
+    uint32 taskid = 1;
+    uint32 times = 2;
+    string result = 3;
+    string output_path = 4;
+    uint32 directory_policy = 5;
+    uint32 empty_policy = 6;
+}

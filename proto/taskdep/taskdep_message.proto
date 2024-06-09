@@ -1,0 +1,132 @@
+syntax = "proto3";
+package jxtd.proto.taskdep;
+
+message ENDPOINT {
+    message ATTR {
+        message AUTHSTRING {
+            message UPPAIR {
+                string name = 1;
+                string key = 2;
+            }
+
+            message PKI {
+                string prvkey = 1;
+                string pubkey = 2;
+            }
+
+            string token = 1;
+            UPPAIR uppair = 2;
+            PKI pki = 3;
+            reserved 4; // optional, reserved, message
+        }
+
+        uint32 authtype = 1;
+        repeated AUTHSTRING authstring = 2;
+    }
+
+    string proto = 1;
+    string url = 2;
+    uint32 port = 3;
+    string path = 4;
+    ATTR attr = 5;
+}
+
+message REQUEST {
+    message TYPE {
+        uint32 src = 1;
+        uint32 dest = 2;
+        uint32 msg = 3;
+    }
+
+    message DATASOURCE {
+        message SRC {
+            string input = 1;
+            string type = 2;
+        }
+
+        message DEST {
+            string output = 1;
+            uint32 directorypolicy = 2;
+            uint32 emptypolicy = 3;
+        }
+
+        SRC src = 1;
+        DEST dest = 2;
+    }
+
+    message ENGINE {
+        message EXTFILES {
+            ENDPOINT storage = 1;
+            string path = 2;
+        }
+
+        optional string binary = 1;
+        optional string id = 2;
+        optional string name = 3;
+        repeated ENGINE deps = 4;
+        repeated EXTFILES extfiles = 5;
+    }
+
+    message ATTR {
+        message PERIOD {
+            uint32 interval = 1;
+            uint32 resultpolicy = 2;
+            uint32 triggerpolicy = 3;
+            repeated uint32 backupid = 4;
+        }
+
+        uint32 trigger = 1;
+        optional PERIOD period = 2;
+        repeated uint64 deps = 3;
+        bool virtstorage = 4;
+    }
+
+    message OBJECT {
+        optional ENDPOINT management = 1;
+        optional ENDPOINT cluster = 2;
+        optional ENDPOINT storage = 3;
+    }
+
+    uint32 magic = 1;
+    TYPE type = 2;
+    string token = 3;
+    uint64 taskid = 4;
+    optional DATASOURCE datasource = 5;
+    optional ENGINE engine = 6;
+    optional ATTR attr = 7;
+    OBJECT object = 8;
+}
+
+message RESPONSE {
+    message TYPE {
+        uint32 src = 1;
+        uint32 dest = 2;
+        uint32 msg = 3;
+    }
+
+    message NEOGIATE {
+        uint32 status = 1;
+        optional string errstr = 2;
+        repeated uint64 alternative = 3;
+    }
+
+    message DEPLOY {
+        uint32 status = 1;
+        optional string errstr = 2;
+        uint32 taskstatus = 3;
+    }
+
+    message OBJECT {
+        optional ENDPOINT management = 1;
+        optional ENDPOINT cluster = 2;
+        optional ENDPOINT storage = 3;
+    }
+
+    uint32 magic = 1;
+    TYPE type = 2;
+    string token = 3;
+    uint64 taskid = 4;
+    optional NEOGIATE neogiate = 5;
+    optional DEPLOY deploy = 6;
+    OBJECT object = 7;
+}

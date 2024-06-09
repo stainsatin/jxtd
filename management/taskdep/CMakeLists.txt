@@ -1,0 +1,13 @@
+set(SRC taskdep.cc)
+add_library(taskdep_management)
+target_sources(taskdep_management PRIVATE ${SRC})
+target_include_directories(taskdep_management PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+add_dependencies(taskdep_management protobuf-3.21.12 taskdep_message taskdep_proto workflow-0.10.4)
+
+set(SRC test_taskdep.cc)
+add_executable(test_taskdep_management)
+target_include_directories(test_taskdep_management PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+target_sources(test_taskdep_management PRIVATE ${SRC})
+target_link_libraries(test_taskdep_management PRIVATE taskdep_management taskdep_message taskdep_proto workflow gtest_main gtest protobuf pthread)
+add_dependencies(test_taskdep_management gtest-1.12.0 protobuf-3.21.12 workflow-0.10.4)
+add_test(test_management_taskdep_taskdep test_taskdep_management)

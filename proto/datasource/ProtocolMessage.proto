@@ -1,0 +1,27 @@
+syntax = "proto3";
+package jxtd.proto.datasource;
+
+message metaentry{
+    string key = 1;
+    string value = 2;
+
+    }
+
+message request{
+    uint32 magic = 1;
+    string token = 2;
+    string name = 3;
+    uint32 action = 4;
+    uint32 proto = 5;
+    string url = 6;
+    uint32 port = 7;
+    repeated metaentry metadata = 17;
+}
+message response{
+    uint32 magic = 1;
+    string token = 2;
+    string name = 3;
+    uint32 status = 4;
+}
+
+

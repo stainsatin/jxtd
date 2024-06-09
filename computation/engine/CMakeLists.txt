@@ -1,0 +1,12 @@
+set(SRC Engine.cc)
+add_library(jxtd_Engine)
+target_sources(jxtd_Engine PRIVATE ${SRC})
+target_include_directories(jxtd_Engine PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+target_link_libraries(jxtd_Engine dl)
+
+set(SRC test_engine.cc)
+add_executable(test_engine)
+target_sources(test_engine PRIVATE ${SRC})
+target_link_libraries(test_engine PRIVATE jxtd_Engine gtest_main gtest pthread)
+add_dependencies(test_engine gtest-1.12.0)
+add_test(test_computation_engine_engine test_engine)

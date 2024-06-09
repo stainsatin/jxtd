@@ -1,0 +1,39 @@
+syntax="proto3";
+
+package jxtd.computation.drccp;
+
+message Report{
+    enum MessageType{
+        UNKNOWN=0;
+        VERSION=1;
+        MEET=2;
+        HELLO=3;
+        ALIVE=4;
+        FORWARD=5;
+        RESULT=6;
+        LOCAL=7;
+    }
+    message Endpoint{
+        string addr=1;
+        uint32 port=2;
+    }
+    message Tag{
+        string cluster=1;
+        string msg=2;
+    }
+    message Payload{
+        optional bytes raw=1;
+        message ShareEntry{
+            Endpoint neigh=1;
+            float share=2;
+        }
+        repeated ShareEntry shares=2;
+    }
+    uint32 magic=1;
+    Tag tag=2;
+    MessageType type=3;
+    uint32 version=4;
+    Endpoint src=5;
+    Endpoint dest=6;
+    Payload payload=7;
+}

@@ -1,0 +1,10 @@
+set(SRC server.cc adapter.cc)
+add_library(onvif_server)
+target_sources(onvif_server PRIVATE ${SRC})
+add_dependencies(onvif_server workflow-0.10.4)
+
+add_executable(test_onvifforward_mock)
+target_sources(test_onvifforward_mock PRIVATE test_onvifforward_mock.cc)
+target_link_libraries(test_onvifforward_mock PRIVATE onvif_server onvif_wfmsg onvif_protolib gmock_main gmock gtest workflow protobuf ssl crypto pthread)
+add_dependencies(test_onvifforward_mock gtest-1.12.0 workflow-0.10.4)
+add_test(test_onvifforward_mock test_onvifforward_mock)

@@ -1,0 +1,28 @@
+protolib(drccp_proto drccp13)
+
+set(SRC message.cc server.cc)
+add_library(drccp)
+target_sources(drccp PRIVATE ${SRC})
+target_include_directories(drccp PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+add_dependencies(drccp protobuf-3.21.12 drccp_proto workflow-0.10.4)
+
+set(SRC test_standalone.cc)
+add_executable(test_standalone)
+target_sources(test_standalone PRIVATE ${SRC})
+target_link_libraries(test_standalone PRIVATE drccp drccp_proto workflow gtest_main gtest protobuf pthread)
+add_dependencies(test_standalone gtest-1.12.0 protobuf-3.21.12 workflow-0.10.4)
+add_test(test_computation_drccp_standalone test_standalone)
+
+set(SRC test_multiserver.cc)
+add_executable(test_multiserver)
+target_sources(test_multiserver PRIVATE ${SRC})
+target_link_libraries(test_multiserver PRIVATE drccp drccp_proto workflow gtest_main gtest protobuf pthread)
+add_dependencies(test_multiserver gtest-1.12.0 protobuf-3.21.12 workflow-0.10.4)
+add_test(test_computation_drccp_multiserver test_multiserver)
+
+set(SRC test_offlineserver.cc)
+add_executable(test_offlineserver)
+target_sources(test_offlineserver PRIVATE ${SRC})
+target_link_libraries(test_offlineserver PRIVATE drccp drccp_proto workflow gtest_main gtest protobuf pthread)
+add_dependencies(test_offlineserver gtest-1.12.0 protobuf-3.21.12 workflow-0.10.4)
+add_test(test_computation_drccp_offlineserver test_offlineserver)

@@ -1,0 +1,21 @@
+protolib(infer_proto SubmitData)
+
+set(SRC infer.cc Tensor.cc)
+add_library(infer)
+target_sources(infer PRIVATE ${SRC})
+target_include_directories(infer PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+add_dependencies(infer protobuf-3.21.12 infer_proto taskdep_message taskdep_proto workflow-0.10.4 opencv-4.6.0)
+target_link_libraries(infer dl)
+
+set(SRC test_infer.cc)
+add_executable(test_infer)
+target_sources(test_infer PRIVATE ${SRC})
+target_include_directories(test_infer PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+target_link_libraries(test_infer PRIVATE infer taskdep_message taskdep_proto datatransfer_client datatransfer_msg datatransfer_proto jxtd_Engine drccp drccp_proto infer_proto workflow gtest_main gtest protobuf pthread opencv_imgproc opencv_core dl)
+add_dependencies(test_infer gtest-1.12.0 protobuf-3.21.12 workflow-0.10.4)
+add_test(test_computation_infer test_infer)
+
+add_executable(test_tensor)
+target_sources(test_tensor PRIVATE test_tensor.cc)
+target_link_libraries(test_tensor PRIVATE infer gtest_main gtest opencv_imgproc opencv_core dl pthread z)
+add_test(test_tensor test_tensor)

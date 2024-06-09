@@ -1,0 +1,48 @@
+Index: b/cmake/OpenCVDownload.cmake
+===================================================================
+--- a/cmake/OpenCVDownload.cmake
++++ b/cmake/OpenCVDownload.cmake
+@@ -26,6 +26,7 @@ set(OPENCV_DOWNLOAD_TRIES_LIST 1 CACHE S
+ set(OPENCV_DOWNLOAD_PARAMS INACTIVITY_TIMEOUT 60 TIMEOUT 600 CACHE STRING "Download parameters to be passed to file(DOWNLOAD ...)")
+ mark_as_advanced(OPENCV_DOWNLOAD_TRIES_LIST OPENCV_DOWNLOAD_PARAMS)
+ 
++if(FALSE)
+ # Init download cache directory and log file and helper scripts
+ if(NOT EXISTS "${OPENCV_DOWNLOAD_PATH}")
+   file(MAKE_DIRECTORY ${OPENCV_DOWNLOAD_PATH})
+@@ -38,8 +39,10 @@ file(REMOVE "${OPENCV_DOWNLOAD_WITH_CURL
+ file(REMOVE "${OPENCV_DOWNLOAD_WITH_WGET}")
+ 
+ ocv_check_environment_variables(OPENCV_DOWNLOAD_MIRROR_ID)
++endif()
+ 
+ function(ocv_init_download_mirror)
++  if(FALSE)
+   if(NOT DEFINED OPENCV_DOWNLOAD_MIRROR_ID)
+     # Run `git remote get-url origin` to get remote source
+     execute_process(
+@@ -79,9 +82,11 @@ function(ocv_init_download_mirror)
+   else()
+     message(STATUS "ocv_init_download: Unable to recognize git server of OpenCV source code. Using github.com to download 3rdparty components.")
+   endif()
++  endif()
+ endfunction()
+ 
+ function(ocv_download)
++  if(FALSE)
+   cmake_parse_arguments(DL "UNPACK;RELATIVE_URL" "FILENAME;HASH;DESTINATION_DIR;ID;STATUS" "URL" ${ARGN})
+ 
+   function(ocv_download_log)
+@@ -297,9 +302,12 @@ ${OPENCV_DOWNLOAD_LOG}
+   if(OCV_DOWNLOAD_HASH_NAME)
+     set(${OCV_DOWNLOAD_HASH_NAME} "${DL_HASH}" CACHE INTERNAL "")
+   endif()
++  endif()
+ endfunction()
+ 
++if(FALSE)
+ # ----------------------------------------------------------------------------
+ #  Initialize download in case mirror is used
+ # ----------------------------------------------------------------------------
+ ocv_init_download_mirror()
++endif()

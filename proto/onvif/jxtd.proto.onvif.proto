@@ -1,0 +1,25 @@
+syntax="proto3";
+package jxtd.proto.onvif;
+message IPCAction{
+    string ipc =1;
+    string result =2;
+    uint32 ack =3;
+    optional uint32 scan =16;
+    optional uint32 streaming =17;
+    optional uint32 snap =18;
+    optional uint32 move =19;
+    optional uint32 absolute =20;
+    optional uint32 pan =2048;
+    optional uint32 tilt =2049;
+    optional uint32 zoom =2050;
+    optional uint32 timeout =2051;
+}
+message OnvifMessage{
+    uint32 magic =1;
+    uint32 transactionID = 2;
+    uint32 srcUID = 3;
+    uint32 destUID = 4;
+    string token =5;
+    repeated IPCAction actions =6;
+    string extension =110;
+}

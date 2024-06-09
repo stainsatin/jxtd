@@ -1,0 +1,5 @@
+set(SRC DataSourceList.cc DataSourceServer.cc)
+add_library(management_datasource)
+target_sources(management_datasource PRIVATE ${SRC})
+target_include_directories(management_datasource PRIVATE ${CMAKE_BINARY_DIR}/proto/datasource)
+add_dependencies(management_datasource workflow-0.10.4 datasource_proto)

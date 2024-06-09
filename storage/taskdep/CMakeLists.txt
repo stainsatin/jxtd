@@ -1,0 +1,13 @@
+set(SRC taskdep.cc)
+add_library(taskdep_storage)
+target_sources(taskdep_storage PRIVATE ${SRC})
+target_include_directories(taskdep_storage PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+add_dependencies(taskdep_storage protobuf-3.21.12 taskdep_message workflow-0.10.4)
+
+set(SRC test_taskdep.cc)
+add_executable(test_taskdep_storage)
+target_include_directories(test_taskdep_storage PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+target_sources(test_taskdep_storage PRIVATE ${SRC})
+target_link_libraries(test_taskdep_storage PRIVATE datamanagement local_fileoperations fs_scheduler taskdep_storage taskdep_management taskdep_message taskdep_proto workflow gtest_main gtest protobuf pthread)
+add_dependencies(test_taskdep_storage gtest-1.12.0 protobuf-3.21.12 workflow-0.10.4)
+add_test(test_storage_taskdep_taskdep test_taskdep_storage)

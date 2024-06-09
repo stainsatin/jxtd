@@ -1,0 +1,6 @@
+protolib(onvif_protolib jxtd.proto.onvif)
+set(SRC message.cc)
+add_library(onvif_wfmsg)
+target_sources(onvif_wfmsg PRIVATE ${SRC})
+target_include_directories(onvif_wfmsg PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+add_dependencies(onvif_wfmsg protobuf-3.21.12 onvif_protolib workflow-0.10.4)

@@ -1,0 +1,6 @@
+set(SRC main.cc)
+add_executable(computation_main)
+target_sources(computation_main PRIVATE ${SRC})
+target_include_directories(computation_main PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_BINARY_DIR}/computation/infer)
+target_link_libraries(computation_main PRIVATE infer infer_proto taskdep_computation taskdep_message taskdep_proto datatransfer_client datatransfer_msg datatransfer_proto jxtd_Engine drccp drccp_proto workflow protobuf pthread opencv_imgproc opencv_core dl flags gflags)
+add_dependencies(computation_main protobuf-3.21.12 workflow-0.10.4 gflags-2.2.2)

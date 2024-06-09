@@ -1,0 +1,13 @@
+set(SRC taskdep.cc)
+add_library(taskdep_computation)
+target_sources(taskdep_computation PRIVATE ${SRC})
+target_include_directories(taskdep_computation PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_BINARY_DIR}/computation/infer)
+add_dependencies(taskdep_computation protobuf-3.21.12 taskdep_message taskdep_proto workflow-0.10.4 opencv-4.6.0)
+
+set(SRC test_taskdep.cc)
+add_executable(test_taskdep_computation)
+target_include_directories(test_taskdep_computation PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_BINARY_DIR}/computation/infer)
+target_sources(test_taskdep_computation PRIVATE ${SRC})
+target_link_libraries(test_taskdep_computation PRIVATE taskdep_computation taskdep_management infer taskdep_message taskdep_proto datatransfer_client datatransfer_msg datatransfer_proto jxtd_Engine drccp drccp_proto infer_proto workflow gtest_main gtest protobuf pthread opencv_imgproc opencv_core dl)
+add_dependencies(test_taskdep_computation gtest-1.12.0 protobuf-3.21.12 workflow-0.10.4)
+add_test(test_computation_taskdep_taskdep test_taskdep_computation)

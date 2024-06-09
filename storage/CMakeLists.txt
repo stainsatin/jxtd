@@ -1,0 +1,5 @@
+add_subdirectory(fs)
+add_subdirectory(datamanagement)
+add_subdirectory(taskdep)
+add_subdirectory(datatrans)
+add_subdirectory(bin)

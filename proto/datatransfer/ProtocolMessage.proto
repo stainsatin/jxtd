@@ -1,0 +1,47 @@
+syntax = "proto3";
+package jxtd.proto.datatransfer;
+
+message adtsrc {
+    message engineattr {
+        string mid = 1;
+        string name = 2;
+    }
+
+    message endpointattr {
+        string proto = 1;
+        string url = 2;
+    }
+
+    optional uint32 taskid = 1;
+    uint32 type = 2;
+    optional engineattr engine = 3;
+    optional endpointattr endpoint = 4;
+    optional string binary = 5;
+}
+
+message dtsrc {
+    message dep {
+        adtsrc endpoint = 1;
+        optional string relative = 2;
+    }
+
+    adtsrc master = 1;
+    repeated dep deps = 2;  
+}
+
+message request {
+    uint32 magic = 1;
+    string token = 2;
+    string src = 3;
+    string dest = 4;
+    uint32 direction = 5;
+    repeated adtsrc master = 6;
+}
+
+message response {
+    uint32 magic = 1;
+    string token = 2;
+    string src = 3;
+    string dest = 4;
+    repeated dtsrc master = 5;
+}

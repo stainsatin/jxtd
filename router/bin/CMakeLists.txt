@@ -1,0 +1,6 @@
+set(SRC main.cc)
+add_executable(router)
+target_sources(router PRIVATE ${SRC})
+target_include_directories(router PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+target_link_libraries(router PRIVATE router_cmd taskdep_management inferprovider taskdep_message taskdep_proto datatransfer_msg datatransfer_proto ATParser ATAction workflow pthread protobuf)
+add_dependencies(router workflow-0.10.4 protobuf-3.21.12)

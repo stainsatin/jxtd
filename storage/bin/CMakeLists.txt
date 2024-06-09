@@ -1,0 +1,6 @@
+set(SRC main.cc)
+add_executable(storage_main)
+target_sources(storage_main PRIVATE ${SRC})
+target_include_directories(storage_main PRIVATE ${CMAKE_CURRENT_BINARY_DIR} {CMAKE_BINARY_DIR}/proto/datatransfer)
+target_link_libraries(storage_main PRIVATE flags gflags storage_datatrans datatransfer_msg datatransfer_proto taskdep_storage datamanagement local_fileoperations fs_scheduler taskdep_management taskdep_message taskdep_proto workflow protobuf pthread)
+add_dependencies(storage_main gflags-2.2.2 protobuf-3.21.12 workflow-0.10.4)
