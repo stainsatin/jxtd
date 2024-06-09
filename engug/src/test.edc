@@ -1,0 +1,21 @@
+[runtime]
+deps=rtlib;
+rtlibtype=file;
+rtlibpath=librt.so;
+rtlibrelative=librt.so;
+[routine]
+proc=proc.c;
+[meta]
+name = demo;mid=66ccff;
+[buffers]
+inputs = 0;
+outputs = 1;
+extra = ex1;extra = ex2;
+pilotage = ex2;
+lane = ex1;
+input0bind = free;
+output0bind = imm;output0immtype=empty;output0immvalue=ignored;
+ex1bind=remote;ex1remotetype=id;ex1remotevalue=6cc56ab4;
+ex2bind=eng;ex2engid=prev;ex2engbuf=output0;
+[attribute]
+lazy=true;
